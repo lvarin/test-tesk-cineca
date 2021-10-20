@@ -1,0 +1,22 @@
+# Default values for test-tesk-cineca.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+tesk:
+  # There are two options here: "openshift" or "kubernetes"
+  clusterType: openshift
+  host_name: "tesk-cineca2.rahtiapp.fi"
+  tesk:
+    debug: true
+  ftp:
+    username: user1
+    password: changeme
+  transfer:
+    active: true
+    wes_base_path: /mnt
+    tes_base_path: /mnt
+    pvc_name: shared
+
+nextflow:
+  #image: lvarin/nextflow-tes-okd:patch
+  image: lvarin/nextflow-tes-okd:20211020-1318

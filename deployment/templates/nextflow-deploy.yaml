@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: nextflow-client
+  name: nextflow-client
+spec:
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: nextflow-client
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: nextflow-client
+        deploymentconfig: nextflow-client
+    spec:
+      containers:
+      - args:
+        - -c
+        - while true; do sleep 9000h;done
+        command:
+        - /bin/sh
+        env:
+        - name: NXF_EXECUTOR_TES_ENDPOINT
+          value: https://{{ .Values.tesk.host_name }}
+        - name: NXF_MODE
+          value: ga4gh
+        - name: NXF_EXECUTOR
+          value: tes
+        - name: NXF_HOME
+          value: /tmp/.nextflow
+        image: {{ .Values.nextflow.image }}
+        imagePullPolicy: Always
+        name: nextflow-dockerhub
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /mnt
+          name: shared
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - name: shared
+        persistentVolumeClaim:
+          claimName: shared
