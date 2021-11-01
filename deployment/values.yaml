@@ -5,7 +5,7 @@
 tesk:
   # There are two options here: "openshift" or "kubernetes"
   clusterType: openshift
-  host_name: "tesk-cineca2.rahtiapp.fi"
+  host_name: <change_me>
   tesk:
     debug: true
   ftp:
